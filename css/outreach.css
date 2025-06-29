@@ -4,7 +4,8 @@
     margin: var(--header-height) auto 0;
     padding: 4rem 2rem;
     text-align: center;
-    background: linear-gradient(to bottom, 
+    background: linear-gradient(
+        to bottom,
         rgba(11, 12, 16, 0.95),
         rgba(31, 31, 31, 0.98)
     );
@@ -14,45 +15,66 @@
     min-height: calc(100vh - var(--header-height));
 }
 
-/* Ambient Background Effects */
+/* Add ambient gradient background */
 .outreach-section::before {
-    content: '';
+    content: "";
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: 
-        radial-gradient(circle at 30% 30%, rgba(36, 152, 220, 0.03) 0%, transparent 80%),
-        radial-gradient(circle at 70% 70%, rgba(255, 131, 0, 0.03) 0%, transparent 80%);
+    background:
+        radial-gradient(
+            circle at 30% 30%,
+            rgba(36, 152, 220, 0.03) 0%,
+            transparent 80%
+        ),
+        radial-gradient(
+            circle at 70% 70%,
+            rgba(255, 131, 0, 0.03) 0%,
+            transparent 80%
+        );
     pointer-events: none;
     z-index: 0;
     animation: gradientMove 20s ease-in-out infinite alternate;
 }
 
-/* Page Header */
-.page-header {
+.section-title {
     text-align: center;
-    margin-bottom: 3rem;
-    position: relative;
-    z-index: 1;
-    padding: 1rem 0;
-    background: none;
-}
-
-.page-header h1 {
     font-size: 3rem;
-    color: #2498DC;
-    font-family: 'Nasalization', sans-serif;
     margin-bottom: 1rem;
+    position: relative;
+    padding-bottom: 1rem;
+    font-family: "Nasalization", sans-serif;
+    background: linear-gradient(90deg, #2498dc, #ff8300);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+    text-shadow: 0 0 20px rgba(36, 152, 220, 0.3);
 }
 
-.page-description {
+.section-title::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 3px;
+    background: linear-gradient(90deg, #2498dc, #ff8300);
+    box-shadow: 0 0 10px rgba(36, 152, 220, 0.5);
+}
+
+.section-description {
+    text-align: center;
     color: rgba(255, 255, 255, 0.9);
     max-width: 800px;
-    margin: 0 auto;
+    margin: 0 auto 3rem auto;
     font-size: 1.1rem;
     line-height: 1.6;
+    position: relative;
+    z-index: 1;
 }
 
 /* Outreach Grid */
@@ -67,19 +89,24 @@
 
 /* Outreach Cards */
 .outreach-card {
-    background: linear-gradient(135deg,
+    background: linear-gradient(
+        135deg,
         rgba(36, 152, 220, 0.05) 0%,
         rgba(26, 26, 26, 0.9) 50%,
         rgba(255, 131, 0, 0.05) 100%
     );
     border-radius: 15px;
     overflow: hidden;
-    box-shadow: 
+    box-shadow:
         0 0 15px rgba(255, 131, 0, 0.1),
         0 0 15px rgba(36, 152, 220, 0.1);
     transition: all 0.3s ease;
     border: 1px solid;
-    border-image: linear-gradient(135deg, rgba(36, 152, 220, 0.3), rgba(255, 131, 0, 0.3)) 1;
+    border-image: linear-gradient(
+        135deg,
+        rgba(36, 152, 220, 0.3),
+        rgba(255, 131, 0, 0.3)
+    ) 1;
     backdrop-filter: blur(5px);
     opacity: 0;
     transform: translateY(20px);
@@ -88,7 +115,7 @@
 
 .outreach-card:hover {
     transform: translateY(-5px);
-    box-shadow: 
+    box-shadow:
         0 0 25px rgba(255, 131, 0, 0.2),
         0 0 25px rgba(36, 152, 220, 0.2);
 }
@@ -118,8 +145,8 @@
 .outreach-content h2 {
     font-size: 1.5rem;
     margin-bottom: 1rem;
-    color: #2498DC;
-    font-family: 'Nasalization', sans-serif;
+    color: #2498dc;
+    font-family: "Nasalization", sans-serif;
 }
 
 .outreach-content p {
@@ -129,9 +156,15 @@
 }
 
 /* Animation delay for cards */
-.outreach-card:nth-child(1) { animation-delay: 0.1s; }
-.outreach-card:nth-child(2) { animation-delay: 0.2s; }
-.outreach-card:nth-child(3) { animation-delay: 0.3s; }
+.outreach-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+.outreach-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+.outreach-card:nth-child(3) {
+    animation-delay: 0.3s;
+}
 
 /* Responsive Design */
 @media (max-width: 1200px) {
@@ -145,11 +178,89 @@
         grid-template-columns: 1fr;
     }
 
-    .page-header h1 {
+    .section-title {
         font-size: 2.5rem;
     }
 
     .outreach-content h2 {
         font-size: 1.3rem;
+    }
+}
+
+/* Calendar Section */
+.calendar-section {
+    margin-top: 4rem;
+    text-align: center;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+    padding: 0 2rem;
+}
+
+.event-card {
+    background: rgba(26, 26, 26, 0.9);
+    border: 1px solid rgba(36, 152, 220, 0.3);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 0 15px rgba(36, 152, 220, 0.1);
+    color: white;
+    transition: transform 0.3s ease;
+    text-align: left;
+}
+
+.event-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 25px rgba(36, 152, 220, 0.3);
+}
+
+.event-card h3 {
+    font-size: 1.4rem;
+    color: #2498dc;
+    margin-bottom: 0.5rem;
+}
+
+.event-card time {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: #ff8300;
+}
+
+.event-card p {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.4;
+}
+
+.event-card img {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-top: 1rem;
+    object-fit: cover;
+    max-height: 180px;
+}
+
+/* Scroll Reveal Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes gradientMove {
+    0% {
+        background-position: 0% 50%, 100% 50%;
+    }
+    100% {
+        background-position: 100% 50%, 0% 50%;
     }
 }
