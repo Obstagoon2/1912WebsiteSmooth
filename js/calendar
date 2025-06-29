@@ -1,80 +1,54 @@
-const apiKey = 'AIzaSyDFk7BVAYxUIngHdDOnVFD14XhnqdOSFDc';
-const calendarId = 'ninq39q6r61rid4mot3h1ues5u3cmrdr@import.calendar.google.com';
+const calendarId = "ninq39q6r61rid4mot3h1ues5u3cmrdr@import.calendar.google.com";
+const apiKey = "AIzaSyDFk7BVAYxUIngHdDOnVFD14XhnqdOSFDc";
+
+const calendarContainer = document.getElementById("calendar-events");
 
 async function fetchCalendarEvents() {
-  const now = new Date().toISOString();
-  const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events?key=${apiKey}&timeMin=${now}&singleEvents=true&orderBy=startTime&maxResults=10`;
+    const timeMin = new Date().toISOString();
+    const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(
+        calendarId
+    )}/events?key=${apiKey}&timeMin=${timeMin}&singleEvents=true&orderBy=startTime`;
 
-  try {
-    const response = await fetch(url);
-    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        const events = data.items;
 
-    const data = await response.json();
-    if (!data.items || data.items.length === 0) {
-      displayNoEvents();
-      return;
+        calendarContainer.innerHTML = "";
+
+        if (!events || events.length === 0) {
+            calendarContainer.innerHTML = "<p>No upcoming events found.</p>";
+            return;
+        }
+
+        events.forEach((event) => {
+            const title = event.summary || "Untitled Event";
+            const start = new Date(event.start.dateTime || event.start.date).toLocaleString();
+            const end = event.end.dateTime ? new Date(event.end.dateTime).toLocaleString() : null;
+            let description = event.description || "";
+
+            // Remove RSVP or attribution line (e.g., anything after "You can see the RSVP..." or "(Asa added)")
+            description = description.replace(/You can see the RSVP[\s\S]*/gi, "").trim();
+            description = description.replace(/\(.*added\)/gi, "").trim();
+
+            const location = event.location || "";
+
+            const card = document.createElement("div");
+            card.classList.add("event-card");
+
+            card.innerHTML = `
+                <h3>${title}</h3>
+                <time>${start}${end ? ` - ${end}` : ""}</time>
+                <p>${description}</p>
+                ${location ? `<p><strong>Location:</strong> ${location}</p>` : ""}
+            `;
+
+            calendarContainer.appendChild(card);
+        });
+    } catch (error) {
+        console.error("Error fetching calendar events:", error);
+        calendarContainer.innerHTML = "<p>Failed to load events.</p>";
     }
-    renderEvents(data.items);
-  } catch (error) {
-    console.error('Failed to fetch calendar events:', error);
-    displayError(error);
-  }
 }
 
-function renderEvents(events) {
-  const container = document.getElementById('calendar-events');
-  container.innerHTML = ''; // Clear previous
-
-  events.forEach(event => {
-    const card = document.createElement('div');
-    card.className = 'event-card';
-
-    // Event Title
-    const title = document.createElement('h3');
-    title.textContent = event.summary || 'No Title';
-    card.appendChild(title);
-
-    // Event Date(s)
-    const time = document.createElement('time');
-    let startDate = event.start.dateTime || event.start.date;
-    let endDate = event.end.dateTime || event.end.date;
-
-    // Format date nicely
-    const options = { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-    let startFormatted = new Date(startDate).toLocaleString(undefined, options);
-    let endFormatted = new Date(endDate).toLocaleString(undefined, options);
-
-    time.textContent = startFormatted + (startFormatted !== endFormatted ? ` - ${endFormatted}` : '');
-    card.appendChild(time);
-
-    // Description (optional)
-    if (event.description) {
-      const desc = document.createElement('p');
-      desc.textContent = event.description;
-      card.appendChild(desc);
-    }
-
-    // Location (optional)
-    if (event.location) {
-      const loc = document.createElement('p');
-      loc.textContent = `Location: ${event.location}`;
-      loc.style.fontStyle = 'italic';
-      card.appendChild(loc);
-    }
-
-    container.appendChild(card);
-  });
-}
-
-function displayNoEvents() {
-  const container = document.getElementById('calendar-events');
-  container.innerHTML = `<p>No upcoming events found.</p>`;
-}
-
-function displayError(error) {
-  const container = document.getElementById('calendar-events');
-  container.innerHTML = `<p>Error loading events: ${error.message}</p>`;
-}
-
-// Initialize fetch on page load
-document.addEventListener('DOMContentLoaded', fetchCalendarEvents);
+fetchCalendarEvents();
