@@ -1,83 +1,92 @@
-/* Outreach Section Styles */
+/* ============================================
+   Outreach Page Styles (combined static + dynamic)
+   ============================================ */
+
+/* Global Variables (if your style.css uses them) */
+:root {
+    --primary-blue: #2498DC;
+    --primary-orange: #FF8300;
+    --header-height: 80px;
+}
+
+/* Reset box sizing */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Body Background */
+body {
+    background: linear-gradient(to bottom,
+        rgba(11, 12, 16, 0.95) 0%,
+        rgba(31, 31, 31, 0.98) 100%);
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+    min-height: 100vh;
+}
+
+/* === Outreach Section === */
 .outreach-section {
     max-width: 1800px;
     margin: var(--header-height) auto 0;
     padding: 4rem 2rem;
     text-align: center;
-    background: linear-gradient(
-        to bottom,
-        rgba(11, 12, 16, 0.95),
-        rgba(31, 31, 31, 0.98)
-    );
-    color: white;
     position: relative;
     overflow: visible;
     min-height: calc(100vh - var(--header-height));
 }
 
-/* Add ambient gradient background */
+/* Ambient Gradient Background */
 .outreach-section::before {
-    content: "";
+    content: '';
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    top: 0; left: 0; right: 0; bottom: 0;
     background:
-        radial-gradient(
-            circle at 30% 30%,
-            rgba(36, 152, 220, 0.03) 0%,
-            transparent 80%
-        ),
-        radial-gradient(
-            circle at 70% 70%,
-            rgba(255, 131, 0, 0.03) 0%,
-            transparent 80%
-        );
+        radial-gradient(circle at 30% 30%, rgba(36, 152, 220, 0.03) 0%, transparent 80%),
+        radial-gradient(circle at 70% 70%, rgba(255, 131, 0, 0.03) 0%, transparent 80%);
     pointer-events: none;
     z-index: 0;
     animation: gradientMove 20s ease-in-out infinite alternate;
 }
 
+/* Section Title */
 .section-title {
     text-align: center;
     font-size: 3rem;
     margin-bottom: 1rem;
-    position: relative;
-    padding-bottom: 1rem;
-    font-family: "Nasalization", sans-serif;
-    background: linear-gradient(90deg, #2498dc, #ff8300);
+    font-family: 'Nasalization', sans-serif;
+    background: linear-gradient(90deg, var(--primary-blue), var(--primary-orange));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    background-clip: text;
     text-fill-color: transparent;
     text-shadow: 0 0 20px rgba(36, 152, 220, 0.3);
+    position: relative;
+    padding-bottom: 1rem;
 }
 
 .section-title::after {
-    content: "";
+    content: '';
     position: absolute;
-    bottom: 0;
-    left: 50%;
+    bottom: 0; left: 50%;
     transform: translateX(-50%);
-    width: 150px;
-    height: 3px;
-    background: linear-gradient(90deg, #2498dc, #ff8300);
+    width: 150px; height: 3px;
+    background: linear-gradient(90deg, var(--primary-blue), var(--primary-orange));
     box-shadow: 0 0 10px rgba(36, 152, 220, 0.5);
 }
 
+/* Section Description */
 .section-description {
-    text-align: center;
-    color: rgba(255, 255, 255, 0.9);
     max-width: 800px;
-    margin: 0 auto 3rem auto;
+    margin: 0 auto 3rem;
     font-size: 1.1rem;
     line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
     position: relative;
     z-index: 1;
 }
 
-/* Outreach Grid */
+/* === Static Outreach Grid === */
 .outreach-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -87,27 +96,25 @@
     padding: 2rem 0;
 }
 
-/* Outreach Cards */
+/* Static Outreach Card */
 .outreach-card {
-    background: linear-gradient(
-        135deg,
+    background: linear-gradient(135deg,
         rgba(36, 152, 220, 0.05) 0%,
         rgba(26, 26, 26, 0.9) 50%,
         rgba(255, 131, 0, 0.05) 100%
     );
     border-radius: 15px;
     overflow: hidden;
-    box-shadow:
-        0 0 15px rgba(255, 131, 0, 0.1),
-        0 0 15px rgba(36, 152, 220, 0.1);
-    transition: all 0.3s ease;
     border: 1px solid;
-    border-image: linear-gradient(
-        135deg,
+    border-image: linear-gradient(135deg,
         rgba(36, 152, 220, 0.3),
         rgba(255, 131, 0, 0.3)
     ) 1;
     backdrop-filter: blur(5px);
+    box-shadow:
+        0 0 15px rgba(255, 131, 0, 0.1),
+        0 0 15px rgba(36, 152, 220, 0.1);
+    transition: all 0.3s ease;
     opacity: 0;
     transform: translateY(20px);
     animation: fadeInUp 0.6s ease forwards;
@@ -121,14 +128,11 @@
 }
 
 .outreach-image {
-    width: 100%;
-    height: 250px;
-    overflow: hidden;
+    width: 100%; height: 250px; overflow: hidden;
 }
 
 .outreach-image img {
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     object-fit: cover;
     transition: transform 0.3s ease;
 }
@@ -145,28 +149,49 @@
 .outreach-content h2 {
     font-size: 1.5rem;
     margin-bottom: 1rem;
-    color: #2498dc;
-    font-family: "Nasalization", sans-serif;
+    color: var(--primary-blue);
 }
 
 .outreach-content p {
-    color: rgba(255, 255, 255, 0.8);
-    line-height: 1.6;
     font-size: 1rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
 }
 
-/* Animation delay for cards */
-.outreach-card:nth-child(1) {
-    animation-delay: 0.1s;
-}
-.outreach-card:nth-child(2) {
-    animation-delay: 0.2s;
-}
-.outreach-card:nth-child(3) {
-    animation-delay: 0.3s;
+/* Animation Delays */
+.outreach-card:nth-child(1) { animation-delay: 0.1s; }
+.outreach-card:nth-child(2) { animation-delay: 0.2s; }
+.outreach-card:nth-child(3) { animation-delay: 0.3s; }
+
+/* === Dynamic Event Cards (fetched from Calendar) === */
+.event-content {
+    padding: 1.5rem;
+    text-align: left;
 }
 
-/* Responsive Design */
+.event-title {
+    font-size: 1.5rem;
+    color: var(--primary-blue);
+    margin-bottom: 0.5rem;
+    font-family: 'Nasalization', sans-serif;
+}
+
+.event-date {
+    display: block;
+    font-weight: 600;
+    color: var(--primary-orange);
+    margin-bottom: 1rem;
+}
+
+.event-description {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.4;
+}
+
+/* (Use the same .outreach-card container for dynamic cards) */
+
+/* === Responsive === */
 @media (max-width: 1200px) {
     .outreach-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -177,74 +202,16 @@
     .outreach-grid {
         grid-template-columns: 1fr;
     }
-
     .section-title {
         font-size: 2.5rem;
     }
-
-    .outreach-content h2 {
+    .outreach-content h2,
+    .event-title {
         font-size: 1.3rem;
     }
 }
 
-/* Calendar Section */
-.calendar-section {
-    margin-top: 4rem;
-    text-align: center;
-}
-
-.calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
-    padding: 0 2rem;
-}
-
-.event-card {
-    background: rgba(26, 26, 26, 0.9);
-    border: 1px solid rgba(36, 152, 220, 0.3);
-    border-radius: 12px;
-    padding: 1.5rem;
-    box-shadow: 0 0 15px rgba(36, 152, 220, 0.1);
-    color: white;
-    transition: transform 0.3s ease;
-    text-align: left;
-}
-
-.event-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0 25px rgba(36, 152, 220, 0.3);
-}
-
-.event-card h3 {
-    font-size: 1.4rem;
-    color: #2498dc;
-    margin-bottom: 0.5rem;
-}
-
-.event-card time {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 0.75rem;
-    color: #ff8300;
-}
-
-.event-card p {
-    font-size: 1rem;
-    color: rgba(255, 255, 255, 0.85);
-    line-height: 1.4;
-}
-
-.event-card img {
-    max-width: 100%;
-    border-radius: 8px;
-    margin-top: 1rem;
-    object-fit: cover;
-    max-height: 180px;
-}
-
-/* Scroll Reveal Animations */
+/* === Keyframes === */
 @keyframes fadeInUp {
     from {
         opacity: 0;
