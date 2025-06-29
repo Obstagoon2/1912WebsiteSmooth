@@ -4,7 +4,7 @@
     margin: var(--header-height) auto 0;
     padding: 4rem 2rem;
     text-align: center;
-    background: linear-gradient(to bottom,
+    background: linear-gradient(to bottom, 
         rgba(11, 12, 16, 0.95),
         rgba(31, 31, 31, 0.98)
     );
@@ -14,6 +14,7 @@
     min-height: calc(100vh - var(--header-height));
 }
 
+/* Ambient Background Effects */
 .outreach-section::before {
     content: '';
     position: fixed;
@@ -21,7 +22,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background:
+    background: 
         radial-gradient(circle at 30% 30%, rgba(36, 152, 220, 0.03) 0%, transparent 80%),
         radial-gradient(circle at 70% 70%, rgba(255, 131, 0, 0.03) 0%, transparent 80%);
     pointer-events: none;
@@ -29,66 +30,35 @@
     animation: gradientMove 20s ease-in-out infinite alternate;
 }
 
+/* Page Header */
 .page-header {
     text-align: center;
     margin-bottom: 3rem;
-    z-index: 2;
     position: relative;
+    z-index: 1;
+    padding: 1rem 0;
+    background: none;
 }
 
 .page-header h1 {
     font-size: 3rem;
-    font-family: 'Nasalization', sans-serif;
     color: #2498DC;
+    font-family: 'Nasalization', sans-serif;
     margin-bottom: 1rem;
 }
 
 .page-description {
-    font-size: 1.1rem;
     color: rgba(255, 255, 255, 0.9);
     max-width: 800px;
     margin: 0 auto;
+    font-size: 1.1rem;
     line-height: 1.6;
-}
-
-/* Social Icons */
-.social-icons {
-    position: fixed;
-    top: 50%;
-    left: 0;
-    transform: translateY(-50%);
-    z-index: 1000;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    padding: 0.5rem;
-}
-
-.social-icons a {
-    background: white;
-    border-radius: 50%;
-    display: inline-block;
-    width: 40px;
-    height: 40px;
-    padding: 5px;
-    transition: transform 0.3s ease;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
-}
-
-.social-icons a:hover {
-    transform: scale(1.1);
-}
-
-.social-icons img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
 }
 
 /* Outreach Grid */
 .outreach-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
     position: relative;
     z-index: 1;
@@ -104,7 +74,7 @@
     );
     border-radius: 15px;
     overflow: hidden;
-    box-shadow:
+    box-shadow: 
         0 0 15px rgba(255, 131, 0, 0.1),
         0 0 15px rgba(36, 152, 220, 0.1);
     transition: all 0.3s ease;
@@ -118,7 +88,7 @@
 
 .outreach-card:hover {
     transform: translateY(-5px);
-    box-shadow:
+    box-shadow: 
         0 0 25px rgba(255, 131, 0, 0.2),
         0 0 25px rgba(36, 152, 220, 0.2);
 }
@@ -140,31 +110,22 @@
     transform: scale(1.05);
 }
 
-.outreach-content,
-.event-content {
+.outreach-content {
     padding: 1.5rem;
     text-align: left;
 }
 
-.outreach-content h2,
-.event-title {
+.outreach-content h2 {
     font-size: 1.5rem;
     margin-bottom: 1rem;
     color: #2498DC;
     font-family: 'Nasalization', sans-serif;
 }
 
-.outreach-content p,
-.event-description {
+.outreach-content p {
     color: rgba(255, 255, 255, 0.8);
     line-height: 1.6;
     font-size: 1rem;
-}
-
-.event-date {
-    color: #FF8300;
-    font-weight: bold;
-    margin-bottom: 1rem;
 }
 
 /* Animation delay for cards */
