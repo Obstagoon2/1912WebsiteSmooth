@@ -1,0 +1,41 @@
+const calendarId = "ninq39q6r61rid4mot3h1ues5u3cmrdr@import.calendar.google.com";
+const apiKey = "AIzaSyA-ovAjUrphpvL1B2gqcR5vZUkng-I4MzQ";
+const calendarContainer = document.getElementById("calendar-events");
+
+async function fetchCalendarEvents() {
+    const now = new Date().toISOString();
+    const url = `https://www.googleapis.com/calendar/v3/calendars/${calendarId}/events?key=${apiKey}&orderBy=startTime&singleEvents=true&timeMin=${now}&maxResults=10`;
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (!data.items) {
+            calendarContainer.innerHTML = "<p>No upcoming events found.</p>";
+            return;
+        }
+
+        data.items.forEach(event => {
+            const start = new Date(event.start.dateTime || event.start.date).toLocaleString();
+            const title = event.summary || "No Title";
+            const description = event.description || "";
+            const location = event.location || "";
+
+            const card = document.createElement("div");
+            card.className = "event-card";
+            card.innerHTML = `
+                <h3>${title}</h3>
+                <p><strong>Date:</strong> ${start}</p>
+                ${location ? `<p><strong>Location:</strong> ${location}</p>` : ""}
+                ${description ? `<p>${description}</p>` : ""}
+            `;
+
+            calendarContainer.appendChild(card);
+        });
+    } catch (error) {
+        console.error("Failed to fetch events:", error);
+        calendarContainer.innerHTML = "<p>Error loading events.</p>";
+    }
+}
+
+document.addEventListener("DOMContentLoaded", fetchCalendarEvents);
