@@ -1,5 +1,5 @@
 const calendarId = "ninq39q6r61rid4mot3h1ues5u3cmrdr@import.calendar.google.com";
-const apiKey = "AIzaSyA-ovAjUrphpvL1B2gqcR5vZUkng-I4MzQ";
+const apiKey = "AIzaSyDFk7BVAYxUIngHdDOnVFD14XhnqdOSFDc";
 const calendarContainer = document.getElementById("calendar-events");
 
 async function fetchCalendarEvents() {
